@@ -6,7 +6,7 @@
 /*   By: msingh <msingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 17:28:54 by msingh            #+#    #+#             */
-/*   Updated: 2025/11/11 14:42:28 by msingh           ###   ########.fr       */
+/*   Updated: 2025/11/10 16:50:39 by msingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ void	ft_free(char **a, int i)
 	free(a);
 }
 
-static char	**ft_malloc(const char *s, char c)
+static char	**ft_maloc(const char *s, char c, int *pos, int *words)
 {
 	char	**arr;
 	int		i;
 
+	*pos = 0;
+	*words = 0;
 	i = ft_countword(s, c);
 	arr = malloc(sizeof(char *) * (i + 1));
 	if (!arr)
@@ -80,9 +82,9 @@ char	**ft_split(const char *s, char c)
 	int		i;
 	int		start;
 
-	arr = ft_malloc(s, c);
-	i = 0;
-	words = 0;
+	arr = ft_maloc(s, c, &i, &words);
+	if (!arr)
+		return (NULL);
 	while (s[i])
 	{
 		while (s[i] && s[i] == c)
